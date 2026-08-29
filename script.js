@@ -1,4 +1,5 @@
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Elementos do DOM ---
   const root = document.documentElement;
   const body = document.body;
   const layout = document.querySelector('.layout');
@@ -11,11 +12,13 @@
   const noResults = document.querySelector('#no-results');
   const progressBar = document.querySelector('#progress-bar');
   
+  // Leitor de Áudio
   const reader = document.querySelector('#reader');
   const readerStatus = document.querySelector('#reader-status');
   const readerRate = document.querySelector('#reader-rate');
   const rateVal = document.querySelector('#rate-val');
 
+  // Botões de Interação
   const btnToggleSidebar = document.querySelector('#toggle-sidebar');
   const btnCloseSidebarMobile = document.querySelector('#close-sidebar-mobile');
   const btnTheme = document.querySelector('#toggle-theme');
@@ -24,6 +27,9 @@
   const btnReader = document.querySelector('#open-reader');
   const btnTop = document.querySelector('#back-top');
   const btnReset = document.querySelector('#reset-view');
+
+  // Proteção estrutural: Interrompe a execução se o DOM principal não existir
+  if (!content || !layout) return;
 
   let sections = [];
   let currentIndex = 0;
@@ -40,8 +46,8 @@
 
   function toggleSidebar() {
     if (isMobile()) {
-      const open = sidebar.classList.toggle('mobile-open');
-      sidebarBackdrop.classList.toggle('active', open);
+      const open = sidebar?.classList.toggle('mobile-open');
+      sidebarBackdrop?.classList.toggle('active', open);
     } else {
       const isHidden = layout.classList.toggle('sidebar-hidden');
       btnToggleSidebar?.setAttribute('aria-expanded', String(!isHidden));
@@ -50,8 +56,8 @@
   }
 
   function closeMobileSidebar() {
-    sidebar.classList.remove('mobile-open');
-    sidebarBackdrop.classList.remove('active');
+    sidebar?.classList.remove('mobile-open');
+    sidebarBackdrop?.classList.remove('active');
   }
 
   btnToggleSidebar?.addEventListener('click', toggleSidebar);
@@ -92,11 +98,11 @@
     delete root.dataset.contrast;
     delete body.dataset.font;
     layout.classList.remove('sidebar-hidden');
-    search.value = '';
+    if(search) search.value = '';
     filterSections('');
   });
 
-  // --- 3. Extração e Construção do Índice com Correção para Tabelas ---
+  // --- 3. Extração e Construção do Índice ---
   const allH2 = [...content.querySelectorAll('h2')];
   sections = allH2.map((h, i) => {
     h.id = `sec-${i}`;
@@ -115,20 +121,22 @@
     return parts.join('. ');
   }
 
-  const tocFragment = document.createDocumentFragment();
-  sections.forEach((s, i) => {
-    const a = document.createElement('a');
-    a.href = `#sec-${i}`;
-    a.textContent = s.title;
-    a.dataset.index = i;
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isMobile()) closeMobileSidebar();
-      s.h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (toc) {
+    const tocFragment = document.createDocumentFragment();
+    sections.forEach((s, i) => {
+      const a = document.createElement('a');
+      a.href = `#sec-${i}`;
+      a.textContent = s.title;
+      a.dataset.index = i;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isMobile()) closeMobileSidebar();
+        s.h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      tocFragment.appendChild(a);
     });
-    tocFragment.appendChild(a);
-  });
-  toc.appendChild(tocFragment);
+    toc.appendChild(tocFragment);
+  }
 
   // --- 4. Busca Suspensa ---
   function filterSections(query) {
@@ -145,70 +153,65 @@
       }
       elements.forEach(el => el.classList.toggle('section-hidden', !match));
       
-      const link = toc.querySelector(`[data-index="${i}"]`);
-      link?.classList.toggle('section-hidden', !match);
+      if (toc) {
+        const link = toc.querySelector(`[data-index="${i}"]`);
+        link?.classList.toggle('section-hidden', !match);
+      }
       if (match) count++;
     });
 
-    noResults.hidden = count !== 0;
-    searchMeta.textContent = q ? `${count} seção(ões) encontrada(s).` : '';
+    if (noResults) noResults.hidden = count !== 0;
+    if (searchMeta) searchMeta.textContent = q ? `${count} seção(ões) encontrada(s).` : '';
   }
 
-  search.addEventListener('input', e => filterSections(e.target.value));
+  search?.addEventListener('input', e => filterSections(e.target.value));
 
   // --- 5. Acompanhamento de Rolagem ---
   function onScroll() {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const currentScroll = window.scrollY;
-    progressBar.style.width = maxScroll > 0 ? `${(currentScroll / maxScroll) * 100}%` : '0%';
+    if (progressBar) {
+        progressBar.style.width = maxScroll > 0 ? `${(currentScroll / maxScroll) * 100}%` : '0%';
+    }
 
     let activeIndex = 0;
     sections.forEach((s, i) => {
       if (s.h.getBoundingClientRect().top <= 120) activeIndex = i;
     });
 
-    toc.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-    toc.querySelector(`[data-index="${activeIndex}"]`)?.classList.add('active');
+    if (toc) {
+        toc.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+        toc.querySelector(`[data-index="${activeIndex}"]`)?.classList.add('active');
+    }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // --- 6. Leitor de Áudio Acessível (Sanitização Avançada PT-BR) ---
+  // --- 6. Leitor de Áudio Acessível ---
   function sanitizeForSpeech(text) {
     return text
-      // 1. Ordinais
       .replace(/1º/g, 'primeiro')
       .replace(/2º/g, 'segundo')
       .replace(/3º/g, 'terceiro')
       .replace(/4º/g, 'quarto')
       .replace(/5º/g, 'quinto')
       .replace(/6º/g, 'sexto')
-      
-      // 2. Correção fonética para letras de alternativas (Case Sensitive)
       .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+A\b/g, '$1 Á')
       .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+B\b/g, '$1 Bê')
       .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+C\b/g, '$1 Cê')
       .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+D\b/g, '$1 Dê')
-      
-      // 3. Símbolos, Conectivos e Pontuações Específicas
       .replace(/%/g, ' por cento')
       .replace(/nº/g, 'número')
       .replace(/\s*[—–-]\s*/g, ' com ') 
       .replace(/([a-zA-Z])\/([a-zA-Z])/g, '$1 ou $2') 
       .replace(/(\d+)\/(\d+)/g, '$1 de $2') 
-      
-      // 4. Siglas e Abreviações
       .replace(/\bDF\b/g, 'Distrito Federal')
       .replace(/\bTSE\b/g, 'Tribunal Superior Eleitoral')
-      
-      // 5. Tratamento de Datas e Anos
       .replace(/(\d{2})\/(\d{2})\/(\d{4})/g, '$1 do $2 de $3')
       .replace(/\b2024\b/g, 'dois mil e vinte e quatro')
       .replace(/\b2026\b/g, 'dois mil e vinte e seis')
       .replace(/\b2028\b/g, 'dois mil e vinte e oito')
       .replace(/\b(\d{4})\b/g, ' $1 ')
-      
-      // 6. Limpeza de Markdown Residual
       .replace(/[_\*]/g, ''); 
   }
 
@@ -223,41 +226,41 @@
 
     const u = new SpeechSynthesisUtterance(cleanText);
     u.lang = 'pt-BR';
-    u.rate = Number(readerRate.value || 1);
+    u.rate = Number(readerRate?.value || 1);
     
-    u.onstart = () => { readerStatus.textContent = `Lendo: ${item.title}`; };
+    u.onstart = () => { if(readerStatus) readerStatus.textContent = `Lendo: ${item.title}`; };
     u.onend = () => {
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         readCurrent();
       } else {
-        readerStatus.textContent = 'Leitura finalizada.';
+        if(readerStatus) readerStatus.textContent = 'Leitura finalizada.';
       }
     };
     synth.speak(u);
   }
 
   btnReader?.addEventListener('click', () => {
-    reader.classList.add('open');
+    reader?.classList.add('open');
     readCurrent();
   });
 
   document.querySelector('#reader-play')?.addEventListener('click', readCurrent);
-  document.querySelector('#reader-pause')?.addEventListener('click', () => synth.pause());
-  document.querySelector('#reader-resume')?.addEventListener('click', () => synth.resume());
-  document.querySelector('#reader-stop')?.addEventListener('click', () => { synth.cancel(); readerStatus.textContent = 'Leitura pausada.'; });
+  document.querySelector('#reader-pause')?.addEventListener('click', () => synth?.pause());
+  document.querySelector('#reader-resume')?.addEventListener('click', () => synth?.resume());
+  document.querySelector('#reader-stop')?.addEventListener('click', () => { synth?.cancel(); if(readerStatus) readerStatus.textContent = 'Leitura pausada.'; });
   document.querySelector('#reader-prev')?.addEventListener('click', () => { currentIndex = Math.max(0, currentIndex - 1); readCurrent(); });
   document.querySelector('#reader-next')?.addEventListener('click', () => { currentIndex = Math.min(sections.length - 1, currentIndex + 1); readCurrent(); });
-  document.querySelector('#reader-close')?.addEventListener('click', () => { synth.cancel(); reader.classList.remove('open'); });
+  document.querySelector('#reader-close')?.addEventListener('click', () => { synth?.cancel(); reader?.classList.remove('open'); });
 
   readerRate?.addEventListener('input', () => {
-    rateVal.textContent = `${readerRate.value}x`;
+    if(rateVal) rateVal.textContent = `${readerRate.value}x`;
   });
 
-  win dow.addEventListener('keydown', (e) => {
+  window.addEventListener('keydown', (e) => {
     if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
       e.preventDefault();
-      search.focus();
+      search?.focus();
     }
   });
-})();
+});
