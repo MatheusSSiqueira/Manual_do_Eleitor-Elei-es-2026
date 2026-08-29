@@ -107,14 +107,11 @@
     const parts = [];
     let n = h.nextElementSibling;
     while (n && n.tagName !== 'H2') {
-      // Usa innerText para respeitar colunas de tabelas e quebras de linha visuais
       let text = n.innerText || n.textContent || '';
-      // Converte quebras de linha e abas em pontos finais para forçar o leitor de voz a pausar
       text = text.replace(/[\n\t]+/g, '. ');
       parts.push(text);
       n = n.nextElementSibling;
     }
-    // Junta os blocos HTML (parágrafos, tabelas, listas) criando pausas naturais
     return parts.join('. ');
   }
 
@@ -186,21 +183,32 @@
       .replace(/4º/g, 'quarto')
       .replace(/5º/g, 'quinto')
       .replace(/6º/g, 'sexto')
-      // 2. Símbolos e Pontuações Específicas
+      
+      // 2. Correção fonética para letras de alternativas (Case Sensitive)
+      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+A\b/g, '$1 Á')
+      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+B\b/g, '$1 Bê')
+      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+C\b/g, '$1 Cê')
+      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+D\b/g, '$1 Dê')
+      
+      // 3. Símbolos, Conectivos e Pontuações Específicas
       .replace(/%/g, ' por cento')
       .replace(/nº/g, 'número')
-      .replace(/\s[—–-]\s/g, ', ')
+      .replace(/\s*[—–-]\s*/g, ' com ') 
       .replace(/([a-zA-Z])\/([a-zA-Z])/g, '$1 ou $2') 
-      // 3. Siglas e Abreviações
+      .replace(/(\d+)\/(\d+)/g, '$1 de $2') 
+      
+      // 4. Siglas e Abreviações
       .replace(/\bDF\b/g, 'Distrito Federal')
       .replace(/\bTSE\b/g, 'Tribunal Superior Eleitoral')
-      // 4. Tratamento de Datas e Anos (Evita que sejam lidos dígito por dígito)
+      
+      // 5. Tratamento de Datas e Anos
       .replace(/(\d{2})\/(\d{2})\/(\d{4})/g, '$1 do $2 de $3')
       .replace(/\b2024\b/g, 'dois mil e vinte e quatro')
       .replace(/\b2026\b/g, 'dois mil e vinte e seis')
       .replace(/\b2028\b/g, 'dois mil e vinte e oito')
-      .replace(/\b(\d{4})\b/g, ' $1 ') // Fallback caso apareça outro ano não mapeado
-      // 5. Limpeza Final
+      .replace(/\b(\d{4})\b/g, ' $1 ')
+      
+      // 6. Limpeza de Markdown Residual
       .replace(/[_\*]/g, ''); 
   }
 
@@ -210,7 +218,6 @@
     const item = sections[currentIndex];
     if (!item) return;
 
-    // Transforma o texto extraído da seção passando pelo filtro de sanitização
     const rawText = `${item.title}. ${item.bodyText}`;
     const cleanText = sanitizeForSpeech(rawText);
 
@@ -247,7 +254,7 @@
     rateVal.textContent = `${readerRate.value}x`;
   });
 
-  window.addEventListener('keydown', (e) => {
+  win dow.addEventListener('keydown', (e) => {
     if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
       e.preventDefault();
       search.focus();
