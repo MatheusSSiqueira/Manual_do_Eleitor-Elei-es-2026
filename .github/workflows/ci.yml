@@ -1,0 +1,32 @@
+name: CI - Validação do Manual
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Verificar integridade dos arquivos base
+        run: |
+          if [ ! -f "index.html" ]; then echo "Erro: index.html não encontrado"; exit 1; fi
+          if [ ! -f "styles.css" ]; then echo "Erro: styles.css não encontrado"; exit 1; fi
+          if [ ! -f "script.js" ]; then echo "Erro: script.js não encontrado"; exit 1; fi
+          echo "Todos os arquivos base estão presentes."
+
+      - name: Validação de Sintaxe (Super-Linter)
+        uses: github/super-linter/slim@v5
+        env:
+          VALIDATE_HTML: true
+          VALIDATE_CSS: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_MARKDOWN: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -132,7 +132,6 @@ button { cursor: pointer; }
   font-size: 16px;
 }
 
-/* Barra de Busca Integrada */
 .header-search {
   position: relative;
   flex: 1;
@@ -210,7 +209,6 @@ button { cursor: pointer; }
   transition: grid-template-columns 0.3s ease;
 }
 
-/* Estado de Lateral Oculta (Desktop) */
 .layout.sidebar-hidden {
   grid-template-columns: 0px minmax(0, 1fr);
 }
@@ -415,6 +413,7 @@ button { cursor: pointer; }
   max-width: 75ch;
 }
 
+/* Bloco de Regras Oficiais */
 .official-note {
   display: flex;
   gap: 12px;
@@ -426,8 +425,27 @@ button { cursor: pointer; }
   font-size: 0.95rem;
 }
 
-.note-icon {
+.official-note i {
   color: var(--brand);
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+/* Bloco Didático (Dicas de Cidadania) */
+.didactic-note {
+  display: flex;
+  gap: 12px;
+  background: color-mix(in srgb, var(--warn) 10%, var(--surface));
+  border-left: 4px solid var(--warn);
+  padding: 14px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 16px 0;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.didactic-note i {
+  color: var(--warn);
   font-size: 1.2rem;
   margin-top: 2px;
 }
@@ -558,6 +576,7 @@ button { cursor: pointer; }
 .reader-controls input { flex: 1; }
 
 .text-brand { color: var(--brand); }
+.text-accent { color: var(--accent); }
 
 /* Responsividade e Adaptação para Dispositivos Móveis */
 .sidebar-backdrop {
@@ -620,7 +639,7 @@ button { cursor: pointer; }
   }
 }
 
-/* Formatação para Impressão e Exportação PDF */
+/* Formatação Otimizada para Impressão e Exportação PDF */
 @media print {
   body {
     background: #ffffff !important;

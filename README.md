@@ -2,35 +2,33 @@
 
 Página web estática pensada para acessibilidade e leitura rápida.
 
-## Arquivos
+![CI Status](https://github.com/matheusssiqueira/manual-eleitor-2026/actions/workflows/ci.yml/badge.svg)
 
-- `index.html` — versão modular.
-- `styles.css` — estilos responsivos, alto contraste e modo escuro.
-- `script.js` — busca, preferências e leitura por áudio via Web Speech API.
-- `manual_eleitor_2026.html` — versão **autônoma**, com CSS e JavaScript embutidos; pode ser aberta diretamente no navegador.
-- `manual.md` — conteúdo-fonte em Markdown.
+## 📌 Status do Projeto
+- 🟢 **Online:** Publicado via GitHub Pages.
+- 🟢 **CI/CD:** Pipeline de validação automatizada implementado (HTML, CSS e JS).
+- 🟢 **Acessibilidade:** Suporte a Web Speech API, Alto Contraste e navegação por teclado.
 
-## Funcionalidades
+## 📅 Histórico de Atualizações
+- **03/09/2026:** Implementação de Integração Contínua (CI) via GitHub Actions, Focus Trap para navegação por teclado no menu mobile e refinação do leitor de áudio para siglas e frações.
+- **28/08/2026:** Lançamento da versão inicial responsiva com Web Speech API, busca dinâmica em tempo real e ajustes de Alto Contraste.
 
-- Layout responsivo para desktop, tablet e celular.
-- Busca por todo o manual, agora suspensa e integrada diretamente ao cabeçalho.
-- Leitura por áudio por seção, com play, pausa, continuar, anterior, próxima, velocidade ajustável e normalização de texto (lê anos e datas corretamente).
-- Modo escuro e Alto contraste.
-- Aumento de fonte.
-- Atalho de teclado `/` para a busca.
-- Skip link para leitores de tela.
-- Conteúdo visível mesmo com JavaScript desativado.
-- Links oficiais consolidados no final do manual.
+## 📁 Arquitetura e Arquivos
+A aplicação foi desenvolvida sem frameworks complexos, focando em performance e manipulação direta do DOM (Vanilla JS).
+- `index.html` — Estrutura semântica principal.
+- `styles.css` — Estilização responsiva, regras de impressão (`@media print`) e variáveis de tema.
+- `script.js` — Lógica isolada de interatividade, persistência de dados (`localStorage`) e leitura avançada de áudio.
+- `manual.md` — Arquivo-fonte em Markdown preservado para controle de versão de texto bruto.
 
-## Observações e Dependências
+## ⚙️ Funcionalidades
+- **Busca Suspensa em Tempo Real:** Filtro instantâneo integrado ao cabeçalho que varre o DOM sem recarregar a página.
+- **Leitura por Áudio Inteligente:** Algoritmo de sanitização em JavaScript (RegEx) para narrar datas, frações, siglas e anos de forma natural em PT-BR.
+- **Acessibilidade Visual e Motora:** Modo escuro, Alto Contraste, ajuste dinâmico de tipografia e "Focus Trap" para navegação exclusiva via teclado.
+- **Responsividade Total:** Layout adaptável (CSS Grid/Flexbox) com barra lateral retrátil (off-canvas).
+- **Proteção de Execução:** Script encapsulado em `DOMContentLoaded` com uso de *optional chaining* (`?.`) para prevenção de falhas.
 
-- **Ícones:** O projeto utiliza a biblioteca FontAwesome via CDN para renderizar os ícones visuais da interface.
-- **Áudio:** A leitura por áudio usa a funcionalidade nativa `SpeechSynthesis` do navegador/sistema. A disponibilidade das vozes em português depende do ambiente do usuário.
+## 🚀 CI/CD e Deploy
+O repositório utiliza **GitHub Actions** para Integração Contínua (CI). A cada push ou pull request, um fluxo de trabalho valida a sintaxe do código e a integridade estrutural. O Continuous Deployment (CD) é feito de forma automatizada pelo **GitHub Pages**.
 
-## Deploy
-
-Este repositório foi arquitetado como uma aplicação *client-side* estática (HTML, CSS e JavaScript puros), configurada para implantação direta via **GitHub Pages**. Nenhuma etapa de *build* ou configuração de servidor backend é necessária.
-
-## Licença
-
-Este projeto possui fins educacionais e está licenciado sob a licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
+## ⚖️ Licença
+Projeto de código aberto com fins educacionais, desenvolvido como parte da graduação em Análise e Desenvolvimento de Sistemas (Unicesumar). Licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.

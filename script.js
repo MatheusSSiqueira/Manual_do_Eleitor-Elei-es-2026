@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Elementos do DOM ---
+  // Elementos do DOM 
   const root = document.documentElement;
   const body = document.body;
   const layout = document.querySelector('.layout');
@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnTop = document.querySelector('#back-top');
   const btnReset = document.querySelector('#reset-view');
 
-  // Proteção estrutural: Interrompe a execução se o DOM principal não existir
+  // Proteção estrutural
   if (!content || !layout) return;
 
   let sections = [];
   let currentIndex = 0;
   const synth = window.speechSynthesis;
 
-  // --- 1. Controle de Exibição da Lateral ---
+  // Controle de Exibição da Lateral e Acessibilidade (Focus Trap) 
   const isMobile = () => window.innerWidth <= 900;
   const savedSidebar = localStorage.getItem('manual-sidebar-hidden');
 
@@ -48,6 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMobile()) {
       const open = sidebar?.classList.toggle('mobile-open');
       sidebarBackdrop?.classList.toggle('active', open);
+      
+      // Gerenciamento de Foco Mobile
+      if (open) {
+        btnToggleSidebar?.setAttribute('aria-expanded', 'true');
+        btnCloseSidebarMobile?.focus(); // Move o foco para o botão de fechar
+      } else {
+        btnToggleSidebar?.setAttribute('aria-expanded', 'false');
+        btnToggleSidebar?.focus(); // Devolve o foco ao botão original
+      }
     } else {
       const isHidden = layout.classList.toggle('sidebar-hidden');
       btnToggleSidebar?.setAttribute('aria-expanded', String(!isHidden));
@@ -58,11 +67,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeMobileSidebar() {
     sidebar?.classList.remove('mobile-open');
     sidebarBackdrop?.classList.remove('active');
+    btnToggleSidebar?.setAttribute('aria-expanded', 'false');
+    btnToggleSidebar?.focus(); // Devolve o foco ao botão original
   }
 
   btnToggleSidebar?.addEventListener('click', toggleSidebar);
   btnCloseSidebarMobile?.addEventListener('click', closeMobileSidebar);
   sidebarBackdrop?.addEventListener('click', closeMobileSidebar);
+
+  // Focus Trap (Prende o Tab dentro do menu mobile)
+  window.addEventListener('keydown', (e) => {
+    if (isMobile() && sidebar?.classList.contains('mobile-open') && e.key === 'Tab') {
+      const focusable = sidebar.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    // Fechar menu com a tecla Esc
+    if (e.key === 'Escape' && sidebar?.classList.contains('mobile-open')) {
+      closeMobileSidebar();
+    }
+  });
 
   // --- 2. Persistência de Preferências ---
   if (localStorage.getItem('manual-theme')) root.dataset.theme = localStorage.getItem('manual-theme');
@@ -98,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     delete root.dataset.contrast;
     delete body.dataset.font;
     layout.classList.remove('sidebar-hidden');
-    if(search) search.value = '';
+    if (search) search.value = '';
     filterSections('');
   });
 
-  // --- 3. Extração e Construção do Índice ---
+  // Extração e Construção do Índice 
   const allH2 = [...content.querySelectorAll('h2')];
   sections = allH2.map((h, i) => {
     h.id = `sec-${i}`;
@@ -114,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let n = h.nextElementSibling;
     while (n && n.tagName !== 'H2') {
       let text = n.innerText || n.textContent || '';
-      text = text.replace(/[\n\t]+/g, '. ');
+      text = text.replace(/[\n\t]+/g, '. '); 
       parts.push(text);
       n = n.nextElementSibling;
     }
@@ -132,13 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (isMobile()) closeMobileSidebar();
         s.h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        s.h.focus(); // Acessibilidade: Move o foco visual para o título clicado
       });
       tocFragment.appendChild(a);
     });
     toc.appendChild(tocFragment);
   }
 
-  // --- 4. Busca Suspensa ---
+  // Busca Suspensa Inteligente
   function filterSections(query) {
     const q = query.trim().toLowerCase();
     let count = 0;
@@ -161,12 +194,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (noResults) noResults.hidden = count !== 0;
-    if (searchMeta) searchMeta.textContent = q ? `${count} seção(ões) encontrada(s).` : '';
+    if (searchMeta) searchMeta.textContent = q ? `${count} seção(ões) encontrada(s). Pressione Enter para ir ao primeiro resultado.` : '';
   }
 
   search?.addEventListener('input', e => filterSections(e.target.value));
 
-  // --- 5. Acompanhamento de Rolagem ---
+  // Pressionar Enter vai direto para o primeiro resultado visível
+  search?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const firstVisibleLink = toc?.querySelector('a:not(.section-hidden)');
+      if (firstVisibleLink) {
+        firstVisibleLink.click();
+        search.blur();
+      }
+    }
+  });
+
+  // Acompanhamento de Rolagem 
   function onScroll() {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const currentScroll = window.scrollY;
@@ -187,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // --- 6. Leitor de Áudio Acessível ---
+  // Leitor de Áudio Acessível (Sanitização Avançada PT-BR) 
   function sanitizeForSpeech(text) {
     return text
       .replace(/1º/g, 'primeiro')
@@ -196,10 +241,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/4º/g, 'quarto')
       .replace(/5º/g, 'quinto')
       .replace(/6º/g, 'sexto')
-      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+A\b/g, '$1 Á')
-      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+B\b/g, '$1 Bê')
-      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+C\b/g, '$1 Cê')
-      .replace(/([Cc]andidato|[Pp]artido|[Gg]overnador|[Ss]enador)\s+D\b/g, '$1 Dê')
+      .replace(/\b(Candidato|Partido|Governador|Senador)\s+A\b/gi, '$1 Á')
+      .replace(/\b(Candidato|Partido|Governador|Senador)\s+B\b/gi, '$1 Bê')
+      .replace(/\b(Candidato|Partido|Governador|Senador)\s+C\b/gi, '$1 Cê')
+      .replace(/\b(Candidato|Partido|Governador|Senador)\s+D\b/gi, '$1 Dê')
+      .replace(/\bA\b\s*[—–-]\s*/g, 'Á com ')
+      .replace(/\bB\b\s*[—–-]\s*/g, 'Bê com ')
+      .replace(/\bC\b\s*[—–-]\s*/g, 'Cê com ')
+      .replace(/\bD\b\s*[—–-]\s*/g, 'Dê com ')
       .replace(/%/g, ' por cento')
       .replace(/nº/g, 'número')
       .replace(/\s*[—–-]\s*/g, ' com ') 
@@ -216,7 +265,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function readCurrent() {
-    if (!synth) return;
+    if (!synth) {
+      if(readerStatus) readerStatus.textContent = 'Leitura por áudio indisponível neste navegador.';
+      return;
+    }
     synth.cancel();
     const item = sections[currentIndex];
     if (!item) return;
@@ -248,15 +300,28 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#reader-play')?.addEventListener('click', readCurrent);
   document.querySelector('#reader-pause')?.addEventListener('click', () => synth?.pause());
   document.querySelector('#reader-resume')?.addEventListener('click', () => synth?.resume());
-  document.querySelector('#reader-stop')?.addEventListener('click', () => { synth?.cancel(); if(readerStatus) readerStatus.textContent = 'Leitura pausada.'; });
-  document.querySelector('#reader-prev')?.addEventListener('click', () => { currentIndex = Math.max(0, currentIndex - 1); readCurrent(); });
-  document.querySelector('#reader-next')?.addEventListener('click', () => { currentIndex = Math.min(sections.length - 1, currentIndex + 1); readCurrent(); });
-  document.querySelector('#reader-close')?.addEventListener('click', () => { synth?.cancel(); reader?.classList.remove('open'); });
-
-  readerRate?.addEventListener('input', () => {
-    if(rateVal) rateVal.textContent = `${readerRate.value}x`;
+  document.querySelector('#reader-stop')?.addEventListener('click', () => { 
+    synth?.cancel(); 
+    if(readerStatus) readerStatus.textContent = 'Leitura interrompida.'; 
+  });
+  document.querySelector('#reader-prev')?.addEventListener('click', () => { 
+    currentIndex = Math.max(0, currentIndex - 1); 
+    readCurrent(); 
+  });
+  document.querySelector('#reader-next')?.addEventListener('click', () => { 
+    currentIndex = Math.min(sections.length - 1, currentIndex + 1); 
+    readCurrent(); 
+  });
+  document.querySelector('#reader-close')?.addEventListener('click', () => { 
+    synth?.cancel(); 
+    reader?.classList.remove('open'); 
   });
 
+  readerRate?.addEventListener('input', () => {
+    if (rateVal) rateVal.textContent = `${readerRate.value}x`;
+  });
+
+  // Atalho de teclado '/' para focar na busca
   window.addEventListener('keydown', (e) => {
     if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
       e.preventDefault();
