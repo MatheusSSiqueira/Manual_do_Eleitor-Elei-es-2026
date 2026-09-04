@@ -1,7 +1,7 @@
 /* Variáveis Globais, Paleta de Cores e Temas */
 :root {
   --bg: #f8fafc;
-  --surface: #ffffff;
+  --surface: #fff;
   --surface-2: #f1f5f9;
   --text: #0f172a;
   --muted: #64748b;
@@ -11,7 +11,7 @@
   --danger: #b91c1c;
   --warn: #b45309;
   --border: #e2e8f0;
-  --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+  --shadow: 0 4px 20px -2px rgb(15 23 42 / 8%);
   --radius: 14px;
   --focus: 3px solid #ffb000;
   --max-w: 1280px;
@@ -28,18 +28,18 @@
   --border: #334155;
   --brand: #60a5fa;
   --brand-2: #93c5fd;
-  --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 4px 20px -2px rgb(0 0 0 / 40%);
 }
 
 [data-contrast="high"] {
-  --bg: #000000;
+  --bg: #000;
   --surface: #050505;
   --surface-2: #171717;
-  --text: #ffffff;
-  --muted: #ffffff;
+  --text: #fff;
+  --muted: #fff;
   --brand: #facc15;
   --brand-2: #fde047;
-  --border: #ffffff;
+  --border: #fff;
   --shadow: none;
 }
 
@@ -209,22 +209,22 @@ button { cursor: pointer; }
   transition: grid-template-columns 0.3s ease;
 }
 
-.layout.sidebar-hidden {
-  grid-template-columns: 0px minmax(0, 1fr);
-}
-
-.layout.sidebar-hidden .sidebar {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
 .sidebar {
   position: sticky;
   top: 90px;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.layout.sidebar-hidden {
+  grid-template-columns: 0 minmax(0, 1fr);
+}
+
+.layout.sidebar-hidden .sidebar {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .side-card {
@@ -347,8 +347,8 @@ button { cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgb(255 255 255 / 18%);
+  border: 1px solid rgb(255 255 255 / 30%);
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -413,7 +413,6 @@ button { cursor: pointer; }
   max-width: 75ch;
 }
 
-/* Bloco de Regras Oficiais */
 .official-note {
   display: flex;
   gap: 12px;
@@ -431,7 +430,6 @@ button { cursor: pointer; }
   margin-top: 2px;
 }
 
-/* Bloco Didático (Dicas de Cidadania) */
 .didactic-note {
   display: flex;
   gap: 12px;
@@ -583,11 +581,11 @@ button { cursor: pointer; }
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgb(0 0 0 / 45%);
   z-index: 140;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .layout {
     grid-template-columns: 1fr;
     padding: 14px 10px 40px;
@@ -605,7 +603,7 @@ button { cursor: pointer; }
     padding: 16px;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+    box-shadow: 2px 0 20px rgb(0 0 0 / 20%);
   }
 
   .sidebar.mobile-open {
@@ -625,7 +623,7 @@ button { cursor: pointer; }
   }
 }
 
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .btn-text, .brand-title {
     display: none;
   }
@@ -642,8 +640,8 @@ button { cursor: pointer; }
 /* Formatação Otimizada para Impressão e Exportação PDF */
 @media print {
   body {
-    background: #ffffff !important;
-    color: #000000 !important;
+    background: #fff !important;
+    color: #000 !important;
     font-size: 12pt;
   }
   
@@ -670,9 +668,14 @@ button { cursor: pointer; }
     background: transparent !important;
   }
 
+  p, li, table, .rule-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   .hero {
     background: transparent !important;
-    color: #000000 !important;
+    color: #000 !important;
     padding: 0 !important;
     box-shadow: none !important;
     border-bottom: 2px solid #000;
@@ -681,7 +684,7 @@ button { cursor: pointer; }
   }
 
   .hero h1, .hero p {
-    color: #000000 !important;
+    color: #000 !important;
   }
 
   .meta-pills {
@@ -691,11 +694,6 @@ button { cursor: pointer; }
   h2, h3 {
     page-break-after: avoid;
     break-after: avoid;
-  }
-
-  p, li, table, .rule-card {
-    page-break-inside: avoid;
-    break-inside: avoid;
   }
 
   .quick-grid {

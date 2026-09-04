@@ -10,7 +10,7 @@ Página web estática pensada para acessibilidade e leitura rápida.
 - 🟢 **Acessibilidade:** Suporte a Web Speech API, Alto Contraste e navegação por teclado.
 
 ## 📅 Histórico de Atualizações
-- **03/09/2026:** Implementação de Integração Contínua (CI) via GitHub Actions, Focus Trap para navegação por teclado no menu mobile e refinação do leitor de áudio para siglas e frações.
+- **04/09/2026:** Implementação de Integração Contínua (CI) via GitHub Actions, Focus Trap para navegação por teclado no menu mobile e refinação do leitor de áudio para siglas e frações.
 - **28/08/2026:** Lançamento da versão inicial responsiva com Web Speech API, busca dinâmica em tempo real e ajustes de Alto Contraste.
 
 ## 📁 Arquitetura e Arquivos
