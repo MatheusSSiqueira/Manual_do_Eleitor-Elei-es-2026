@@ -28,18 +28,18 @@ Em 2026 serão renovadas **513 cadeiras da Câmara dos Deputados, 54 das 81 cade
 
 Não haverá eleição para prefeito, vice-prefeito ou vereador. As eleições municipais ocorreram em 2024 e as próximas serão em 2028.
 
-*   Prefeito
-*   Vice-prefeito
-*   Vereador
+* Prefeito
+* Vice-prefeito
+* Vereador
 
 ## 3. Quem pode votar?
 
 O voto é **obrigatório** para brasileiros maiores de 18 anos que não estejam nas hipóteses constitucionais de voto facultativo.
 
 É **facultativo** para:
-*   Jovens de 16 e 17 anos;
-*   Pessoas analfabetas;
-*   Pessoas com mais de 70 anos.
+* Jovens de 16 e 17 anos;
+* Pessoas analfabetas;
+* Pessoas com mais de 70 anos.
 
 Para votar em 2026, a inscrição eleitoral precisava estar regularizada dentro do prazo de fechamento do cadastro, em **6 de maio de 2026**, e a pessoa precisava ter completado 16 anos até 4 de outubro.
 
@@ -80,10 +80,10 @@ Deputado Federal é eleito pelo **sistema proporcional**. O eleitor pode votar e
 ## 10. O que é voto proporcional?
 
 Imagine uma eleição hipotética para 10 cadeiras:
-*   Partido A — 40% dos votos
-*   Partido B — 30%
-*   Partido C — 20%
-*   Partido D — 10%
+* Partido A — 40% dos votos
+* Partido B — 30%
+* Partido C — 20%
+* Partido D — 10%
 
 A distribuição das cadeiras tende a refletir a proporção da votação, seguindo as regras legais de cálculo e das sobras.
 
@@ -95,8 +95,8 @@ De forma simplificada:
 ## 12. O que é voto de legenda?
 
 Nas eleições proporcionais, o eleitor pode votar:
-*   **No candidato:** digitando o número completo.
-*   **Na legenda:** digitando apenas o número do partido, segundo as regras aplicáveis.
+* **No candidato:** digitando o número completo.
+* **Na legenda:** digitando apenas o número do partido, segundo as regras aplicáveis.
 
 ## 13. Como funciona o voto para Deputado Estadual?
 
@@ -105,12 +105,12 @@ Nas eleições proporcionais, o eleitor pode votar:
 ## 14. Quantos votos você dará?
 
 No primeiro turno, a ordem de votação é:
-1.  **Deputado Federal**
-2.  **Deputado Estadual/Distrital**
-3.  **Senador — 1ª vaga**
-4.  **Senador — 2ª vaga**
-5.  **Governador + Vice-Governador**
-6.  **Presidente + Vice-Presidente**
+1. **Deputado Federal**
+2. **Deputado Estadual/Distrital**
+3. **Senador — 1ª vaga**
+4. **Senador — 2ª vaga**
+5. **Governador + Vice-Governador**
+6. **Presidente + Vice-Presidente**
 
 ## 15. Como não se perder na urna?
 
@@ -125,13 +125,13 @@ Prepare uma lista antes de sair de casa. Uma anotação em papel com os números
 **Não.** Celular, câmera, filmadora e equipamentos semelhantes não podem permanecer na cabine, ainda que desligados.
 
 **Na cabine é proibido:**
-*   Fotografar o voto
-*   Gravar vídeo
-*   Fazer selfie
+* Fotografar o voto
+* Gravar vídeo
+* Fazer selfie
 
 **É permitido:**
-*   Levar anotação em papel
-*   Manifestar individualmente e silenciosamente sua preferência
+* Levar anotação em papel
+* Manifestar individualmente e silenciosamente sua preferência
 
 ## 18. Posso usar camiseta, adesivo ou bandeira de candidato?
 
@@ -241,11 +241,11 @@ Atua na Assembleia Legislativa do estado, criando e votando leis estaduais.
 
 ## 44. Como avaliar propostas de um candidato?
 
-1.  **O que quer fazer?** Identifique a proposta exata.
-2.  **É competência do cargo?** Verifique se a lei confere essa atribuição ao cargo.
-3.  **Quanto custa?** Descubra a viabilidade orçamentária.
-4.  **Quem aprova?** Avalie se depende de aprovação legislativa.
-5.  **Como medir?** Analise indicadores e metas claras.
+1. **O que quer fazer?** Identifique a proposta exata.
+2. **É competência do cargo?** Verifique se a lei confere essa atribuição ao cargo.
+3. **Quanto custa?** Descubra a viabilidade orçamentária.
+4. **Quem aprova?** Avalie se depende de aprovação legislativa.
+5. **Como medir?** Analise indicadores e metas claras.
 
 ## 45. Como pesquisar candidatos?
 
@@ -346,13 +346,13 @@ Um candidato não precisa ser seu herói para receber seu voto, nem outro precis
 
 ## 68. Um método de decisão em 7 perguntas
 
-1.  Quem é o candidato?
-2.  Qual é o partido?
-3.  O que ele propõe?
-4.  As propostas são compatíveis com a competência do cargo?
-5.  Há condições políticas, jurídicas e financeiras para executar?
-6.  Como foi a atuação anterior?
-7.  Eu votaria nele mesmo sem a propaganda?
+1. Quem é o candidato?
+2. Qual é o partido?
+3. O que ele propõe?
+4. As propostas são compatíveis com a competência do cargo?
+5. Há condições políticas, jurídicas e financeiras para executar?
+6. Como foi a atuação anterior?
+7. Eu votaria nele mesmo sem a propaganda?
 
 ## 69. Checklist do eleitor — antes da eleição
 
@@ -369,24 +369,24 @@ Um candidato não precisa ser seu herói para receber seu voto, nem outro precis
 
 ## 71. Checklist — dentro da cabine
 
-1.  **Deputado Federal:** Digite o número → CONFIRMA
-2.  **Deputado Estadual/Distrital:** Digite o número → CONFIRMA
-3.  **Senador 1:** Digite o número → CONFIRMA
-4.  **Senador 2:** Digite outro número → CONFIRMA
-5.  **Governador:** Digite o número → CONFIRMA
-6.  **Presidente:** Digite o número → CONFIRMA
+1. **Deputado Federal:** Digite o número → CONFIRMA
+2. **Deputado Estadual/Distrital:** Digite o número → CONFIRMA
+3. **Senador 1:** Digite o número → CONFIRMA
+4. **Senador 2:** Digite outro número → CONFIRMA
+5. **Governador:** Digite o número → CONFIRMA
+6. **Presidente:** Digite o número → CONFIRMA
 
 ## 72. Os 10 maiores erros que o eleitor deve evitar
 
-1.  Votar sem pesquisar.
-2.  Compartilhar notícia sem verificar.
-3.  Acreditar em vídeo sem fonte primária.
-4.  Confundir proposta com competência real do cargo.
-5.  Achar que voto nulo cancela eleição.
-6.  Confundir senador com deputado.
-7.  Votar duas vezes no mesmo senador.
-8.  Fotografar o voto na urna.
-9.  Aceitar compra de voto.
+1. Votar sem pesquisar.
+2. Compartilhar notícia sem verificar.
+3. Acreditar em vídeo sem fonte primária.
+4. Confundir proposta com competência real do cargo.
+5. Achar que voto nulo cancela eleição.
+6. Confundir senador com deputado.
+7. Votar duas vezes no mesmo senador.
+8. Fotografar o voto na urna.
+9. Aceitar compra de voto.
 10. Escolher candidato somente baseado em redes sociais.
 
 ## 73. Os princípios do eleitor consciente
@@ -407,9 +407,9 @@ Conheça os candidatos, leia as propostas, verifique as fontes de informação, 
 ## 75. Resumo de Bolso
 
 **Lembretes fundamentais:**
-*   Branco não anula a eleição.
-*   Pesquisa eleitoral não é resultado final garantido.
-*   Celular não entra de forma alguma na cabine de votação.
+* Branco não anula a eleição.
+* Pesquisa eleitoral não é resultado final garantido.
+* Celular não entra de forma alguma na cabine de votação.
 
 ---
 
@@ -417,6 +417,6 @@ Conheça os candidatos, leia as propostas, verifique as fontes de informação, 
 
 Use estas páginas oficiais para confirmar as informações de sua zona eleitoral.
 
-*   [Eleições 2026 — TSE](https://www.tse.jus.br/eleicoes/eleicoes-2026)
-*   [Manual do Eleitor — TSE](https://www.tse.jus.br/manualdoeleitor)
-*   [Pardal Web — painel de denúncias](https://pardal-web.tse.jus.br/)
+* [Eleições 2026 — TSE](https://www.tse.jus.br/eleicoes/eleicoes-2026)
+* [Manual do Eleitor — TSE](https://www.tse.jus.br/manualdoeleitor)
+* [Pardal Web — painel de denúncias](https://pardal-web.tse.jus.br/)

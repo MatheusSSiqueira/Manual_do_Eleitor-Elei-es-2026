@@ -1,4 +1,5 @@
 /* Variáveis Globais, Paleta de Cores e Temas */
+
 :root {
   --bg: #f8fafc;
   --surface: #fff;
@@ -16,6 +17,7 @@
   --focus: 3px solid #ffb000;
   --max-w: 1280px;
   --header-h: 70px;
+
   font-synthesis: none;
 }
 
@@ -44,6 +46,7 @@
 }
 
 /* Reset e Configuração Tipográfica Adaptável */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -62,15 +65,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body[data-font="large"] { font-size: 18px; }
-body[data-font="xlarge"] { font-size: 20px; }
+body[data-font="large"] {
+  font-size: 18px;
+}
 
-a { color: var(--brand); text-decoration: none; }
-a:hover { text-decoration: underline; }
+body[data-font="xlarge"] {
+  font-size: 20px;
+}
 
-button, input { font: inherit; }
-button { cursor: pointer; }
-:focus-visible { outline: var(--focus); outline-offset: 2px; }
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
 
 .skip-link {
   position: fixed;
@@ -83,9 +107,13 @@ button { cursor: pointer; }
   border-radius: 6px;
   z-index: 9999;
 }
-.skip-link:focus { transform: translateY(0); }
+
+.skip-link:focus {
+  transform: translateY(0);
+}
 
 /* Cabeçalho Fixo e Barra Suspensa */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -194,11 +222,12 @@ button { cursor: pointer; }
 
 .progress-bar {
   height: 100%;
-  width: 0%;
+  width: 0;
   background: var(--brand);
 }
 
 /* Layout com Barra Lateral Retrátil */
+
 .layout {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -307,6 +336,7 @@ button { cursor: pointer; }
 }
 
 /* Formatação do Texto e Componentes do Manual */
+
 .content-area {
   min-width: 0;
 }
@@ -485,8 +515,13 @@ button { cursor: pointer; }
   margin-bottom: 6px;
 }
 
-.custom-list-prohibited i { color: var(--danger); }
-.custom-list-allowed i { color: var(--accent); }
+.custom-list-prohibited i {
+  color: var(--danger);
+}
+
+.custom-list-allowed i {
+  color: var(--accent);
+}
 
 .rules-container {
   display: grid;
@@ -501,8 +536,13 @@ button { cursor: pointer; }
   border: 1px solid var(--border);
 }
 
-.rule-prohibited { background: color-mix(in srgb, var(--danger) 5%, transparent); }
-.rule-allowed { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.rule-prohibited {
+  background: color-mix(in srgb, var(--danger) 5%, transparent);
+}
+
+.rule-allowed {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
 
 .rule-card h3 {
   font-size: 1rem;
@@ -527,6 +567,7 @@ button { cursor: pointer; }
 }
 
 /* Controles Flutuantes e Leitor */
+
 .floating {
   position: fixed;
   bottom: 20px;
@@ -559,10 +600,27 @@ button { cursor: pointer; }
   display: none;
 }
 
-.reader.open { display: block; }
-.reader-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.reader-status { font-size: 0.85rem; color: var(--muted); }
-.reader-actions { display: flex; gap: 4px; }
+.reader.open {
+  display: block;
+}
+
+.reader-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.reader-status {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.reader-actions {
+  display: flex;
+  gap: 4px;
+}
+
 .reader-actions button {
   padding: 6px 10px;
   border: 1px solid var(--border);
@@ -570,13 +628,29 @@ button { cursor: pointer; }
   background: var(--surface-2);
   color: var(--text);
 }
-.reader-controls { margin-top: 8px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
-.reader-controls input { flex: 1; }
 
-.text-brand { color: var(--brand); }
-.text-accent { color: var(--accent); }
+.reader-controls {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reader-controls input {
+  flex: 1;
+}
+
+.text-brand {
+  color: var(--brand);
+}
+
+.text-accent {
+  color: var(--accent);
+}
 
 /* Responsividade e Adaptação para Dispositivos Móveis */
+
 .sidebar-backdrop {
   display: none;
   position: fixed;
@@ -624,10 +698,11 @@ button { cursor: pointer; }
 }
 
 @media (width <= 650px) {
-  .btn-text, .brand-title {
+  .btn-text,
+  .brand-title {
     display: none;
   }
-  
+
   .header-search {
     max-width: none;
   }
@@ -638,18 +713,19 @@ button { cursor: pointer; }
 }
 
 /* Formatação Otimizada para Impressão e Exportação PDF */
+
 @media print {
   body {
     background: #fff !important;
     color: #000 !important;
     font-size: 12pt;
   }
-  
-  .site-header, 
-  .sidebar, 
-  .sidebar-backdrop, 
-  .floating, 
-  .reader, 
+
+  .site-header,
+  .sidebar,
+  .sidebar-backdrop,
+  .floating,
+  .reader,
   .progress-container {
     display: none !important;
   }
@@ -668,7 +744,10 @@ button { cursor: pointer; }
     background: transparent !important;
   }
 
-  p, li, table, .rule-card {
+  p,
+  li,
+  table,
+  .rule-card {
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -683,7 +762,8 @@ button { cursor: pointer; }
     margin-bottom: 20px !important;
   }
 
-  .hero h1, .hero p {
+  .hero h1,
+  .hero p {
     color: #000 !important;
   }
 
@@ -691,7 +771,8 @@ button { cursor: pointer; }
     display: none !important;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     page-break-after: avoid;
     break-after: avoid;
   }
@@ -708,10 +789,11 @@ button { cursor: pointer; }
     flex: 1;
   }
 
-  .data-table th, .data-table td {
+  .data-table th,
+  .data-table td {
     border: 1px solid #000 !important;
   }
-  
+
   a {
     color: #000 !important;
     text-decoration: underline !important;
